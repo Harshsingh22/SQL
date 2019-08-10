@@ -1,0 +1,31 @@
+#pivot function in oracle syntax--
+
+SELECT * FROM
+(
+  SELECT column1, column2
+  FROM tables
+  WHERE conditions
+)
+PIVOT 
+(
+  aggregate_function(column2)
+  FOR column2
+  IN ( expr1, expr2, ... expr_n) | subquery
+)
+ORDER BY expression [ ASC | DESC ];
+
+
+
+#Example-------
+
+SELECT * FROM
+(
+  SELECT customer_ref, product_id
+  FROM orders
+)
+PIVOT
+(
+  COUNT(product_id)
+  FOR product_id IN (10, 20, 30)
+)
+ORDER BY customer_ref;
